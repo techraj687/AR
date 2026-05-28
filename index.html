@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background">
+        <div class="floating-hearts"></div>
+        <div class="nebula"></div>
+        <div class="sparkles"></div>
+    </div>
+
+    <!-- Audio Control -->
+    <div class="audio-control">
+        <button id="musicToggle" class="music-btn" title="Toggle Music">
+            <span>🔊</span>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div id="app" class="app-container">
+        <!-- Landing Page: Birthday Star Gatekeeper -->
+        <section id="landing" class="landing-page">
+            <div class="gatekeeper-card">
+                <h1 class="gatekeeper-title">Will You Be My Birthday Star?</h1>
+                <p class="gatekeeper-subtitle">Click Yes to begin our journey 💫</p>
+                
+                <div class="button-group">
+                    <button id="yesBtn" class="btn btn-yes">Yes 💕</button>
+                    <button id="noBtn" class="btn btn-no">No</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="dashboard" style="display: none;">
+            <div class="dashboard-header">
+                <h1>Welcome to Your Special Day 🎂</h1>
+                <p class="personalization-footer" id="personalNote">Your names and special date will appear here</p>
+            </div>
+
+            <nav class="dashboard-nav">
+                <button class="nav-btn active" data-section="letter">💌 Birthday Letter</button>
+                <button class="nav-btn" data-section="reasons">❤️ Why I Love You</button>
+                <button class="nav-btn" data-section="gallery">📸 Photo Gallery</button>
+                <button class="nav-btn" data-section="quiz">🎯 Birthday Quiz</button>
+                <button class="nav-btn" data-section="game">🎮 Love Match Game</button>
+                <button class="nav-btn" data-section="finale">🎉 Grand Finale</button>
+            </nav>
+
+            <!-- Letter Section -->
+            <section id="letter" class="content-section active">
+                <div class="letter-card">
+                    <button class="close-letter-btn" onclick="closeLetter()">✕</button>
+                    <div id="letterContent" class="letter-content">
+                        <h2>Dear Birthday Star 💫</h2>
+                        <p>Today is a day to celebrate YOU and everything you mean to me...</p>
+                        <p>From the first moment we met, you've brought light to my life. Every day with you is a gift I never take for granted.</p>
+                        <p>Your smile brightens my darkest days. Your laugh is my favorite song. Your presence is my sanctuary.</p>
+                        <p>I want you to know that you are loved beyond measure, appreciated beyond words, and treasured beyond compare.</p>
+                        <p>Thank you for being MY birthday star. Thank you for choosing us.</p>
+                        <p class="letter-signature">Forever Yours 💕</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openLetter()">Open Letter</button>
+                </div>
+            </section>
+
+            <!-- Why I Love You Section -->
+            <section id="reasons" class="content-section">
+                <div class="reasons-container">
+                    <h2>Why I Love You 💕</h2>
+                    <div class="reasons-list">
+                        <div class="reason-item" style="animation-delay: 0s">1. Your kindness lights up every room</div>
+                        <div class="reason-item" style="animation-delay: 0.2s">2. Your laugh is my favorite melody</div>
+                        <div class="reason-item" style="animation-delay: 0.4s">3. The way you care about others is beautiful</div>
+                        <div class="reason-item" style="animation-delay: 0.6s">4. Your intelligence and wisdom inspire me</div>
+                        <div class="reason-item" style="animation-delay: 0.8s">5. You make me want to be a better person</div>
+                        <div class="reason-item" style="animation-delay: 1s">6. Your strength through challenges amazes me</div>
+                        <div class="reason-item" style="animation-delay: 1.2s">7. The little things you do mean everything</div>
+                        <div class="reason-item" style="animation-delay: 1.4s">8. Your dreams and ambitions motivate me</div>
+                        <div class="reason-item" style="animation-delay: 1.6s">9. You are my safe place, my home</div>
+                        <div class="reason-item" style="animation-delay: 1.8s">10. Simply... you are YOU, and that's everything</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Photo Gallery Section -->
+            <section id="gallery" class="content-section">
+                <div class="gallery-container">
+                    <h2>Our Memories Together 📸</h2>
+                    <div class="photo-grid">
+                        <div class="photo-item" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" data-memory="Our first adventure"></div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" data-memory="A perfect moment"></div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);" data-memory="Rainy day cuddles"></div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);" data-memory="Summer laughs"></div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);" data-memory="Sunset dreams"></div>
+                        <div class="photo-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);" data-memory="Our special night"></div>
+                    </div>
+                    <p class="gallery-note">Hover over images to see the memories ✨</p>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz" class="content-section">
+                <div class="quiz-container">
+                    <h2 id="quizTitle">Birthday Quiz 🎯</h2>
+                    <div id="quizContent" class="quiz-content">
+                        <div class="quiz-question">What's something I absolutely love about you?</div>
+                        <div class="quiz-options">
+                            <button class="quiz-option" onclick="checkQuizAnswer(true)">A) Everything!</button>
+                            <button class="quiz-option" onclick="checkQuizAnswer(true)">B) Your beautiful spirit</button>
+                            <button class="quiz-option" onclick="checkQuizAnswer(true)">C) Your amazing heart</button>
+                            <button class="quiz-option" onclick="checkQuizAnswer(true)">D) All of the above!</button>
+                        </div>
+                    </div>
+                    <div id="quizResult" class="quiz-result" style="display: none;">
+                        <p class="result-message">You're absolutely amazing! 🌟</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Love Match Game Section -->
+            <section id="game" class="content-section">
+                <div class="game-container">
+                    <h2>Love Match Game 💑</h2>
+                    <p>Match the pairs to reveal our secret message!</p>
+                    <div id="gameBoard" class="game-board"></div>
+                    <div id="secretMessage" class="secret-message" style="display: none;">Our love is eternal and growing stronger each day ✨</div>
+                </div>
+            </section>
+
+            <!-- Grand Finale Section -->
+            <section id="finale" class="content-section">
+                <div class="finale-container">
+                    <h2>The Grand Finale 🎊</h2>
+                    <button id="surpriseBtn" class="btn btn-surprise">🎉 Click for Surprise!</button>
+                    
+                    <div id="surpriseContent" class="surprise-content" style="display: none;">
+                        <div class="countdown">
+                            <h1>Happy Birthday! 🎂</h1>
+                            <p id="countdownText" class="countdown-text">Days until next celebration: <span id="daysCount">365</span></p>
+                            <div class="countdown-display">
+                                <div class="time-unit">
+                                    <span id="days">0</span>
+                                    <p>Days</p>
+                                </div>
+                                <div class="time-unit">
+                                    <span id="hours">0</span>
+                                    <p>Hours</p>
+                                </div>
+                                <div class="time-unit">
+                                    <span id="minutes">0</span>
+                                    <p>Minutes</p>
+                                </div>
+                                <div class="time-unit">
+                                    <span id="seconds">0</span>
+                                    <p>Seconds</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gift-reveal">
+                            <h3>Scratch for Your Surprise 🎁</h3>
+                            <div id="scratchCard" class="scratch-card">
+                                <div class="scratch-surface"></div>
+                                <div class="scratch-reveal">🎟️ Your Gift Unlock Code: LUV2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
